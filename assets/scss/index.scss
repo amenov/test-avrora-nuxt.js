@@ -17,13 +17,11 @@ body {
 .wrapper {
   margin-top: 90px;
   margin-bottom: 90px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #ddd;
 }
 
 .content {
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .btn {
@@ -42,6 +40,11 @@ body {
   &-block {
     display: block;
     width: 100%;
+  }
+
+  &-unstyled {
+    background-color: transparent;
+    border: 0;
   }
 }
 

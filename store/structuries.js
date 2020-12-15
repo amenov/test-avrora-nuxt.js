@@ -7,13 +7,32 @@ export const state = () => ({
     { id: 5, parentId: 3, name: "Отдел 2", persons: 15 },
     { id: 6, parentId: 2, name: "Управление 2", persons: 0 },
     { id: 7, parentId: 6, name: "Отдел 1", persons: 30 },
-    { id: 8, parentId: 6, name: "Отдел 2", persons: 40 }
+    { id: 8, parentId: 6, name: "Отдел 2", persons: 40 },
+
+    { id: 9, parentId: null, name: "Нур-Султан", persons: 0 },
+    { id: 10, parentId: 9, name: "Центр 1", persons: 0 },
+    { id: 11, parentId: 10, name: "Управление 1", persons: 5 },
+    { id: 12, parentId: 11, name: "Отдел 1", persons: 10 },
+    { id: 13, parentId: 11, name: "Отдел 2", persons: 15 },
+    { id: 14, parentId: 9, name: "Управление 2", persons: 0 },
+    { id: 15, parentId: 14, name: "Отдел 1", persons: 30 },
+    { id: 16, parentId: 14, name: "Отдел 2", persons: 40 }
   ]
 });
 
 export const mutations = {
   SET_STRUCTURIES(state, payload) {
     state.structuries = [...state.structuries, payload];
+  },
+  UPDATE_STRUCTURE(state, payload) {
+    const structure = state.structuries.find(item => item.id === payload.id);
+
+    Object.assign(structure, payload);
+  },
+  DESTROY_STRUCTURE(state, id) {
+    console.log(2);
+
+    state.structuries = state.structuries.filter(item => item.id !== id);
   }
 };
 
@@ -23,6 +42,14 @@ export const actions = {
       id: state.structuries.length + 1,
       ...payload
     });
+  },
+  updateStructure({ commit }, payload) {
+    commit("UPDATE_STRUCTURE", payload);
+  },
+  destroyStructure({ commit }, id) {
+    console.log(1);
+
+    commit("DESTROY_STRUCTURE", id);
   }
 };
 
@@ -32,8 +59,9 @@ export const getters = {
 
     const result = structuries.filter(structure => {
       if (structure.parentId === null) {
-        const createChildren = (structure, depth = 0) => {
+        const createChildren = (structure, depth = 0, delimiter = "-") => {
           structure.depth = depth += 1;
+          structure.delimiter = delimiter += "-";
 
           structure.children = structuries.filter(
             child => structure.id === child.parentId
@@ -47,7 +75,7 @@ export const getters = {
 
           if (structure.children.length) {
             structure.children.forEach(child => {
-              createChildren(child, depth);
+              createChildren(child, depth, delimiter);
 
               structure.countPersons += child.children.reduce(
                 (acc, child) => acc + child.countPersons,

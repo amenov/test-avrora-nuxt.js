@@ -17,7 +17,7 @@ export default {
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["~/plugins/modal-window"],
+  plugins: ["~/plugins/index", "~/plugins/modal-window"],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

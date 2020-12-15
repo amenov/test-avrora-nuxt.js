@@ -1,9 +1,9 @@
 <template>
-  <div class="modal-window" :id="id" @click="close">
+  <div class="modal-window" :id="id" @click="$modal.hide(`#${id}`)">
     <div class="modal-window-inner" @click.stop>
       <div class="modal-window-header">
         <div class="modal-window-header-title">{{ title }}</div>
-        <div class="modal-window-header-close" @click="close">
+        <div class="modal-window-header-close" @click="$modal.hide(`#${id}`)">
           <span>&times;</span>
         </div>
       </div>
@@ -16,14 +16,7 @@
 
 <script>
 export default {
-  props: ["title", "id"],
-  methods: {
-    close() {
-      document
-        .querySelector(`#${this.id}`)
-        .classList.remove("modal-window--active");
-    }
-  }
+  props: ["title", "id"]
 };
 </script>
 
@@ -34,8 +27,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(#000, 0.3);
-  backdrop-filter: blur(3px);
+  background-color: rgba(#000, 0.45);
   opacity: 0;
   visibility: hidden;
   transition: 0.45s;

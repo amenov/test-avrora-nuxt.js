@@ -25,8 +25,6 @@ export default {};
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px;
-  background-color: #f6f6f6;
 
   &-logo {
     background-color: #f0f0f0;

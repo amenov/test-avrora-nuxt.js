@@ -3,9 +3,7 @@
     <div class="wrapper">
       <Header />
       <div class="content">
-        <ModalWindow title="Добавить стуктуру" id="mw-create-structure">
-          <FormCreateStructure />
-        </ModalWindow>
+        <ModalWindowCreateStructure />
         <div class="structuries-header">
           <div>Название</div>
           <div>Общее кол-во</div>
@@ -34,7 +32,7 @@ export default {
 <style lang="scss">
 .structuries-header {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 
   > div {
     padding: 15px 0;
