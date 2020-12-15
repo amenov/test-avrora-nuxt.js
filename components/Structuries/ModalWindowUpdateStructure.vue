@@ -87,7 +87,6 @@ export default {
       this.updateStructure(this.form);
 
       this.$modal.hide("#mw-update-structure-" + this.structure.id);
-      this.$forceUpdate();
     }
   },
   mounted() {
