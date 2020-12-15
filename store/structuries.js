@@ -59,9 +59,9 @@ export const getters = {
 
     const result = structuries.filter(structure => {
       if (structure.parentId === null) {
-        const createChildren = (structure, depth = 0, delimiter = "-") => {
+        const createChildren = (structure, depth = 0, delimiter = "") => {
           structure.depth = depth += 1;
-          structure.delimiter = delimiter += "-";
+          structure.delimiter = depth > 1 ? (delimiter += "-") : delimiter;
 
           structure.children = structuries.filter(
             child => structure.id === child.parentId

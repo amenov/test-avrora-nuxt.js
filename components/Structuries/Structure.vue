@@ -106,7 +106,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 li {
   margin-bottom: 9px;
 

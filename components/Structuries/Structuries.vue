@@ -22,7 +22,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 ul {
   list-style: none;
   padding-left: 0;

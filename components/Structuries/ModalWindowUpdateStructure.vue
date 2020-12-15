@@ -71,6 +71,8 @@ export default {
       updateStructure: "structuries/updateStructure"
     }),
     flat(items) {
+      items = items.filter(s => s.id !== this.structure.id);
+
       var final = [];
       var self = this;
       items.forEach(item => {
@@ -94,5 +96,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
