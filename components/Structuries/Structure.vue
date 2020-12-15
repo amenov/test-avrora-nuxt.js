@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateStructure: "structuries/updateStructure",
       destroyStructure: "structuries/destroyStructure"
     }),
     generateBgColor(depth) {
@@ -82,9 +81,7 @@ export default {
 
       return `background-color: rgba(54, 54, 197, ${alpha})`;
     },
-    update() {
-      this.updateStructure(this.form);
-    },
+
     destroy() {
       const yes = confirm("Вы действительно хотите удалить структуру?");
 

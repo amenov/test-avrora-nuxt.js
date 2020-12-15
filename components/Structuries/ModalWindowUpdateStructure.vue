@@ -44,7 +44,7 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary btn-block">
-        Добавить структуру
+        Изменить
       </button>
     </form>
   </ModalWindow>
@@ -67,10 +67,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      updateStructure: "structuries/updateStructure"
+    }),
     flat(items) {
       var final = [];
       var self = this;
-      items.forEach(function(item) {
+      items.forEach(item => {
         final.push(item);
 
         if (typeof item.children !== "undefined") {
@@ -79,6 +82,12 @@ export default {
       });
 
       return final;
+    },
+    handler() {
+      this.updateStructure(this.form);
+
+      this.$modal.hide("#mw-update-structure-" + this.structure.id);
+      this.$forceUpdate();
     }
   },
   mounted() {

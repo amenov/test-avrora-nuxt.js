@@ -92,6 +92,8 @@ export default {
 
       this.createStructure(this.form);
 
+      this.$modal.hide("#mw-create-structure");
+
       this.bootstrap();
     }
   },
