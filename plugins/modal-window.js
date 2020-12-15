@@ -5,6 +5,10 @@ Vue.use({
     Vue.prototype.$modal = {
       hide(id) {
         document.querySelector(id).classList.remove("modal-window--active");
+
+        // setTimeout(() => {
+        //   document.querySelector(id).remove();
+        // }, 300);
       }
     };
   }
