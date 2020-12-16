@@ -13,10 +13,6 @@ export default {
   props: {
     structuries: {
       type: Array
-    },
-    depth: {
-      type: Number,
-      default: 0
     }
   }
 };
