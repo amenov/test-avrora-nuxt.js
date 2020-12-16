@@ -1,7 +1,7 @@
 <template>
   <ModalWindow title="Добавить стуктуру" id="mw-create-structure">
     <form @submit.prevent="handler">
-      <div class="form-group">
+      <div class="form-group" :class="{ 'form-group--error': errors.name }">
         <label for="structure-name">Название</label>
         <input
           type="text"
@@ -57,7 +57,8 @@ export default {
       name: "",
       persons: 0
     },
-    form: {}
+    form: {},
+    errors: {}
   }),
   computed: {
     ...mapGetters({
@@ -88,7 +89,19 @@ export default {
       return final;
     },
     handler() {
-      if (!this.form.name) return;
+      this.errors = {};
+
+      if (!this.form.name) {
+        alert('Пожалуйста заполните поле "Название"!');
+
+        this.errors.name = true;
+
+        return;
+      }
+
+      if (this.form.persons === "") {
+        this.form.persons = 0;
+      }
 
       this.createStructure(this.form);
 
