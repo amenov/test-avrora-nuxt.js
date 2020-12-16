@@ -61,7 +61,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      structuries: "structuries/getStructuries"
+      structuries: "structuries/structuries"
     }),
     flatStructuries() {
       return this.flat(this.structuries);
@@ -80,7 +80,7 @@ export default {
       items.forEach(function(item) {
         final.push(item);
 
-        if (typeof item.children !== "undefined") {
+        if (typeof item.children !== undefined) {
           final = final.concat(self.flat(item.children));
         }
       });
@@ -92,7 +92,7 @@ export default {
 
       this.createStructure(this.form);
 
-      this.$modal.hide("#mw-create-structure");
+      this.$modalWindow.hide("#mw-create-structure");
 
       this.bootstrap();
     }

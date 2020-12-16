@@ -12,6 +12,12 @@ body {
 .container {
   width: 1170px;
   margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 }
 
 .wrapper {

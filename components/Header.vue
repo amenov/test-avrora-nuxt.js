@@ -12,6 +12,8 @@
       >
         Добавить структуру
       </button>
+
+      <ModalWindowCreateStructure />
     </div>
   </div>
 </template>

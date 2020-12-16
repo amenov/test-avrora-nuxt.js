@@ -60,7 +60,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      structuries: "structuries/getStructuries"
+      structuries: "structuries/structuries"
     }),
     flatStructuries() {
       return this.flat(this.structuries);
@@ -78,7 +78,7 @@ export default {
       items.forEach(item => {
         final.push(item);
 
-        if (typeof item.children !== "undefined") {
+        if (typeof item.children !== undefined) {
           final = final.concat(self.flat(item.children));
         }
       });
@@ -86,9 +86,9 @@ export default {
       return final;
     },
     handler() {
-      this.updateStructure(this.form);
+      this.$modalWindow.hide("#mw-update-structure-" + this.structure.id);
 
-      this.$modal.hide("#mw-update-structure-" + this.structure.id);
+      this.updateStructure(this.form);
     }
   },
   mounted() {

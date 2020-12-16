@@ -2,13 +2,15 @@ import Vue from "vue";
 
 Vue.use({
   install(Vue) {
-    Vue.prototype.$modal = {
+    Vue.prototype.$modalWindow = {
       hide(id) {
-        document.querySelector(id).classList.remove("modal-window--active");
+        const mw = document.querySelector(id);
 
-        // setTimeout(() => {
-        //   document.querySelector(id).remove();
-        // }, 300);
+        const activeClass = "modal-window--active";
+
+        if (mw.classList.contains(activeClass)) {
+          mw.classList.remove(activeClass);
+        }
       }
     };
   }
@@ -18,11 +20,14 @@ Vue.directive("modal-window", {
   bind(el, binding, vnode) {
     el.onclick = function(e) {
       if (binding.value) {
+        e.stopPropagation();
+
         const mw = document.querySelector(`#${binding.value}`);
 
-        if (mw) {
-          document.body.appendChild(mw);
-          setTimeout(() => mw.classList.add("modal-window--active"), 0);
+        const activeClass = "modal-window--active";
+
+        if (mw && !mw.classList.contains(activeClass)) {
+          mw.classList.add(activeClass);
         }
       }
     };

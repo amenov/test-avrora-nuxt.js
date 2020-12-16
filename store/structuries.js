@@ -21,40 +21,38 @@ export const state = () => ({
 });
 
 export const mutations = {
-  SET_STRUCTURIES(state, payload) {
-    state.structuries = [...state.structuries, payload];
+  CREATE_STRUCTURE(state, data) {
+    state.structuries = [...state.structuries, data];
   },
-  UPDATE_STRUCTURE(state, payload) {
-    const structure = state.structuries.find(item => item.id === payload.id);
+  UPDATE_STRUCTURE(state, data) {
+    const structure = state.structuries.find(item => item.id === data.id);
 
-    Object.assign(structure, payload);
+    if (structure) {
+      Object.assign(structure, data);
+    }
   },
   DESTROY_STRUCTURE(state, id) {
-    console.log(2);
-
     state.structuries = state.structuries.filter(item => item.id !== id);
   }
 };
 
 export const actions = {
-  createStructure({ commit, state }, payload) {
-    commit("SET_STRUCTURIES", {
+  createStructure({ commit, state }, data) {
+    commit("CREATE_STRUCTURE", {
       id: state.structuries.length + 1,
-      ...payload
+      ...data
     });
   },
-  updateStructure({ commit }, payload) {
-    commit("UPDATE_STRUCTURE", payload);
+  updateStructure({ commit }, data) {
+    commit("UPDATE_STRUCTURE", data);
   },
   destroyStructure({ commit }, id) {
-    console.log(1);
-
     commit("DESTROY_STRUCTURE", id);
   }
 };
 
 export const getters = {
-  getStructuries: state => {
+  structuries: state => {
     const structuries = JSON.parse(JSON.stringify(state.structuries));
 
     const result = structuries.filter(structure => {

@@ -1,9 +1,12 @@
 <template>
-  <div class="modal-window" :id="id" @click="$modal.hide(`#${id}`)">
+  <div class="modal-window" :id="id" @click.stop="$modalWindow.hide(`#${id}`)">
     <div class="modal-window-inner" @click.stop>
       <div class="modal-window-header">
         <div class="modal-window-header-title">{{ title }}</div>
-        <div class="modal-window-header-close" @click="$modal.hide(`#${id}`)">
+        <div
+          class="modal-window-header-close"
+          @click.stop="$modalWindow.hide(`#${id}`)"
+        >
           <span>&times;</span>
         </div>
       </div>

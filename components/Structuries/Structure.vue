@@ -29,17 +29,14 @@
       <div class="structure-col ">
         {{ structure.countNested }}
       </div>
-      <div
-        class="structure-col structure-col--actions"
-        onclick="event.stopPropagation()"
-      >
+      <div class="structure-col structure-col--actions">
         <button
           class="btn btn-unstyled"
           v-modal-window="'mw-update-structure-' + structure.id"
         >
           <b-icon-pencil-fill />
         </button>
-        <button class="btn btn-unstyled" @click="destroy">
+        <button class="btn btn-unstyled" @click.stop="destroy">
           <b-icon-trash />
         </button>
       </div>
@@ -49,7 +46,6 @@
 
     <Structuries
       v-if="structure.children.length"
-      onclick="event.stopPropagation()"
       :structuries="structure.children"
     />
   </li>
@@ -60,9 +56,6 @@ import { mapActions } from "vuex";
 
 export default {
   props: ["structure"],
-  data: () => ({
-    form: {}
-  }),
   components: {
     Structuries: () => import("./Structuries"),
     ModalWindowUpdateStructure: () => import("./ModalWindowUpdateStructure")
@@ -81,7 +74,6 @@ export default {
 
       return `background-color: rgba(54, 54, 197, ${alpha})`;
     },
-
     destroy() {
       const yes = confirm("Вы действительно хотите удалить структуру?");
 
@@ -91,17 +83,15 @@ export default {
     }
   },
   mounted() {
-    document.getElementById(
-      "structure-" + this.structure.id
-    ).onclick = function() {
-      this.classList.toggle("active");
-    };
+    this.$nextTick(() => {
+      document.getElementById(
+        "structure-" + this.structure.id
+      ).onclick = function(e) {
+        e.stopPropagation();
 
-    this.form = {
-      id: this.structure.id,
-      name: this.structure.name,
-      persons: this.structure.persons
-    };
+        this.classList.toggle("active");
+      };
+    });
   }
 };
 </script>

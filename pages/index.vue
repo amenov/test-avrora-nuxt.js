@@ -3,7 +3,6 @@
     <div class="wrapper">
       <Header />
       <div class="content">
-        <ModalWindowCreateStructure />
         <div class="structuries-header">
           <div>Название</div>
           <div>Общее кол-во</div>
@@ -23,7 +22,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      structuries: "structuries/getStructuries"
+      structuries: "structuries/structuries"
     })
   }
 };
