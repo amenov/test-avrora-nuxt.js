@@ -59,7 +59,7 @@ export const mutations = {
 export const actions = {
   createStructure({ commit, state }, data) {
     commit("CREATE_STRUCTURE", {
-      id: state.structuries.length + 1,
+      id: state.structuries[state.structuries.length - 1].id + 1,
       ...data
     });
   },
