@@ -6,12 +6,19 @@
       <div>Фактическое кол-во</div>
       <div>Кол-во вложенных элементов</div>
     </div>
-    <Structuries :structuries="structuries" />
+    <template v-if="structuries.length">
+      <Structuries :structuries="structuries" />
+    </template>
+    <template v-else>
+      <div class="text-center">
+        <span>Ничего не найдено</span>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   computed: {

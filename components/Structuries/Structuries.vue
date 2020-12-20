@@ -1,8 +1,8 @@
 <template>
   <ul>
     <Structure
-      v-for="(structure, index) in structuries"
-      :key="index"
+      v-for="structure in structuries"
+      :key="structure.id + structure.name"
       :structure="structure"
     />
   </ul>
@@ -10,11 +10,7 @@
 
 <script>
 export default {
-  props: {
-    structuries: {
-      type: Array
-    }
-  }
+  props: ["structuries"]
 };
 </script>
 

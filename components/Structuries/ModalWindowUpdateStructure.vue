@@ -24,25 +24,27 @@
           v-model.number="form.persons"
         />
       </div>
-      <div class="form-group">
-        <label for="structure-parent">Родительская структура</label>
-        <select
-          name="parent"
-          id="structure-parent"
-          class="form-control"
-          v-model.number="form.parentId"
-        >
-          <option :value="null">Не выбрано</option>
-          <option
-            :value="item.id"
-            v-for="(item, index) in flatStructuries"
-            :key="index"
+      <template v-if="flatStructuries.length">
+        <div class="form-group">
+          <label for="structure-parent">Родительская структура</label>
+          <select
+            name="parent"
+            id="structure-parent"
+            class="form-control"
+            v-model.number="form.parentId"
           >
-            {{ item.delimiter }}
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
+            <option :value="null">Не выбрано</option>
+            <option
+              :value="item.id"
+              v-for="(item, index) in flatStructuries"
+              :key="index"
+            >
+              {{ item.delimiter }}
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </template>
       <button type="submit" class="btn btn-primary btn-block">
         Изменить
       </button>
@@ -56,7 +58,11 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   props: ["structure"],
   data: () => ({
-    form: {}
+    form: {
+      parentId: null,
+      name: "",
+      persons: 0
+    }
   }),
   computed: {
     ...mapGetters({
@@ -71,24 +77,24 @@ export default {
       updateStructure: "structuries/updateStructure"
     }),
     flat(items) {
-      items = items.filter(s => s.id !== this.structure.id);
+      items = items.filter(item => item.id !== this.structure.id);
 
-      var final = [];
-      var self = this;
+      let final = [];
+
       items.forEach(item => {
         final.push(item);
 
-        if (typeof item.children !== undefined) {
-          final = final.concat(self.flat(item.children));
+        if (typeof item.children !== "undefined") {
+          final = [...final, ...this.flat(item.children)];
         }
       });
 
       return final;
     },
     handler() {
-      this.$modalWindow.hide("#mw-update-structure-" + this.structure.id);
-
       this.updateStructure(this.form);
+
+      this.$modalWindow.hide("#mw-update-structure-" + this.structure.id);
     }
   },
   mounted() {

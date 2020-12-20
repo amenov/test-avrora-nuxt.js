@@ -1,5 +1,9 @@
 <template>
-  <ModalWindow title="Добавить стуктуру" id="mw-create-structure">
+  <ModalWindow
+    title="Добавить стуктуру"
+    id="mw-create-structure"
+    @close="reset"
+  >
     <form @submit.prevent="handler">
       <div class="form-group" :class="{ 'form-group--error': errors.name }">
         <label for="structure-name">Название</label>
@@ -21,25 +25,27 @@
           v-model.number="form.persons"
         />
       </div>
-      <div class="form-group">
-        <label for="structure-parent">Родительская структура</label>
-        <select
-          name="parent"
-          id="structure-parent"
-          class="form-control"
-          v-model.number="form.parentId"
-        >
-          <option :value="null">Не выбрано</option>
-          <option
-            :value="item.id"
-            v-for="(item, index) in flatStructuries"
-            :key="index"
+      <template v-if="structuries.length">
+        <div class="form-group">
+          <label for="structure-parent">Родительская структура</label>
+          <select
+            name="parent"
+            id="structure-parent"
+            class="form-control"
+            v-model.number="form.parentId"
           >
-            {{ item.delimiter }}
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
+            <option :value="null">Не выбрано</option>
+            <option
+              :value="item.id"
+              v-for="(item, index) in flatStructuries"
+              :key="index"
+            >
+              {{ item.delimiter }}
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </template>
       <button type="submit" class="btn btn-primary btn-block">
         Добавить структуру
       </button>
@@ -76,13 +82,13 @@ export default {
       this.form = { ...this.initialForm };
     },
     flat(items) {
-      var final = [];
-      var self = this;
-      items.forEach(function(item) {
+      let final = [];
+
+      items.forEach(item => {
         final.push(item);
 
-        if (typeof item.children !== undefined) {
-          final = final.concat(self.flat(item.children));
+        if (typeof item.children !== "undefined") {
+          final = [...final, ...this.flat(item.children)];
         }
       });
 
@@ -107,6 +113,9 @@ export default {
 
       this.$modalWindow.hide("#mw-create-structure");
 
+      this.reset();
+    },
+    reset() {
       this.bootstrap();
     }
   },

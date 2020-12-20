@@ -1,12 +1,9 @@
 <template>
-  <div class="modal-window" :id="id" @click.stop="$modalWindow.hide(`#${id}`)">
+  <div class="modal-window" :id="id" @click="close">
     <div class="modal-window-inner" @click.stop>
       <div class="modal-window-header">
-        <div class="modal-window-header-title">{{ title }}</div>
-        <div
-          class="modal-window-header-close"
-          @click.stop="$modalWindow.hide(`#${id}`)"
-        >
+        <div class="modal-window-title">{{ title }}</div>
+        <div class="modal-window-close" @click="close">
           <span>&times;</span>
         </div>
       </div>
@@ -19,7 +16,16 @@
 
 <script>
 export default {
-  props: ["title", "id"]
+  props: ["title", "id"],
+  methods: {
+    close(e) {
+      e.stopPropagation();
+
+      this.$emit("close");
+
+      this.$modalWindow.hide(`#${this.id}`);
+    }
+  }
 };
 </script>
 
@@ -41,24 +47,24 @@ export default {
     justify-content: space-between;
     padding: 21px 15px;
     border-bottom: 1px solid #ddd;
+  }
 
-    &-title {
-      font-weight: 500;
-      font-size: 21px;
-    }
+  &-title {
+    font-weight: 500;
+    font-size: 21px;
+  }
 
-    &-close {
-      background-color: red;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
-    }
+  &-close {
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
   }
 
   &-inner {

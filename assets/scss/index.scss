@@ -74,6 +74,20 @@ body {
   }
 }
 
+.text {
+  &-center {
+    text-align: center !important;
+  }
+
+  &-right {
+    text-align: right !important;
+  }
+
+  &-left {
+    text-align: left !important;
+  }
+}
+
 label {
   margin-bottom: 9px;
   display: inline-block;
