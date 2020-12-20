@@ -27,12 +27,32 @@ export const mutations = {
   UPDATE_STRUCTURE(state, data) {
     const structure = state.structuries.find(item => item.id === data.id);
 
-    console.log(structure, data);
-
     if (structure) Object.assign(structure, data);
   },
   DESTROY_STRUCTURE(state, id) {
-    state.structuries = state.structuries.filter(item => item.id !== id);
+    const ids = [];
+
+    const destroy = id => {
+      state.structuries.forEach(item => {
+        if (item.id === id) {
+          ids.push(item.id);
+
+          state.structuries.forEach(item => {
+            if (item.parentId === id) {
+              ids.push(item.id);
+
+              destroy(item.id);
+            }
+          });
+        }
+      });
+    };
+
+    destroy(id);
+
+    state.structuries = state.structuries.filter(
+      structure => structure.id !== ids.find(itemId => itemId === structure.id)
+    );
   }
 };
 
