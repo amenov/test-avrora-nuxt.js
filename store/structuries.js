@@ -12,6 +12,8 @@ export const mutations = {
   UPDATE_STRUCTURE(state, data) {
     const structure = state.structuries.find(item => item.id === data.id);
 
+    console.log(structure, data);
+
     if (structure) Object.assign(structure, data);
   },
   DESTROY_STRUCTURE(state, id) {

@@ -98,7 +98,9 @@ export default {
     }
   },
   mounted() {
-    this.form = { ...this.structure };
+    const { id, parentId, name, persons } = this.structure;
+
+    this.form = { id, parentId, name, persons };
   }
 };
 </script>

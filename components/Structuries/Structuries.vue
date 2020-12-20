@@ -2,7 +2,7 @@
   <ul>
     <Structure
       v-for="structure in structuries"
-      :key="structure.id + structure.name"
+      :key="structure.id"
       :structure="structure"
     />
   </ul>
